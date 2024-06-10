@@ -1,0 +1,468 @@
+swagger: '2.0'
+info:
+  description: 'Este é um exemplo de serviço de autenticação JWT. Você pode descobrir mais sobre o JWT em [https://jwt.io/](https://jwt.io/). Para este modelo, você pode usar os usuários `admin` ou `client` (senha: admin e client respectivamente) para testar os filtros de autorização. Depois de fazer login com sucesso e obter o token, você deve clicar no botão superior direito `Autorizar` e apresentá-lo com o prefixo "Bearer "."'
+  version: 1.0.0
+  title: API de autenticação JSON Web Token
+  contact:
+    email: renato.dias@eximiati.com
+  license:
+    name: Eximia License
+    url: https://www.eximiati.com.br/
+host: localhost:8080
+basePath: /
+tags:
+  - name: auth-resource
+    description: Auth Resource
+  - name: autorizacoes
+    description: Dados das  autorizacoes
+  - name: category-resource
+    description: Category Resource
+  - name: product-resoruce
+    description: Product Resoruce
+  - name: role-resource
+    description: Role Resource
+  - name: user-resource
+    description: User Resource
+  - name: usuarios
+    description: Dados do usuario
+  - name: usuarios
+    description: Operações sobre usuarios
+paths:
+  /v2/usuarios/token:
+    post:
+      tags:
+        - usuarios
+      summary: '${UsuariosController.token} Obter token '
+      operationId: login
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: senha
+          in: query
+          description: senha
+          required: false
+          type: string
+          allowEmptyValue: false
+        - name: usuario
+          in: query
+          description: usuario
+          required: false
+          type: string
+          allowEmptyValue: false
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '400':
+          description: Algo deu errado
+        '422':
+          description: Nome de usuário/senha inválidos fornecidos
+      security:
+        - Authorization:
+            - global
+      deprecated: false
+securityDefinitions:
+  Authorization:
+    type: apiKey
+    name: Authorization
+    in: header
+
+    
+    
+definitions:
+  CategoryDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+    title: CategoryDTO
+  ForgotPasswordDTO:
+    type: object
+    properties:
+      email:
+        type: string
+    title: ForgotPasswordDTO
+  GrantedAuthority:
+    type: object
+    properties:
+      authority:
+        type: string
+    title: GrantedAuthority
+  MessageDTO:
+    type: object
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+      path:
+        type: string
+      status:
+        type: integer
+        format: int32
+      timestamp:
+        type: integer
+        format: int64
+    title: MessageDTO
+  Pageable:
+    type: object
+    properties:
+      offset:
+        type: integer
+        format: int64
+      pageNumber:
+        type: integer
+        format: int32
+      pageSize:
+        type: integer
+        format: int32
+      paged:
+        type: boolean
+      sort:
+        $ref: '#/definitions/Sort'
+      unpaged:
+        type: boolean
+    title: Pageable
+  Page«CategoryDTO»:
+    type: object
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/CategoryDTO'
+      empty:
+        type: boolean
+      first:
+        type: boolean
+      last:
+        type: boolean
+      number:
+        type: integer
+        format: int32
+      numberOfElements:
+        type: integer
+        format: int32
+      pageable:
+        $ref: '#/definitions/Pageable'
+      size:
+        type: integer
+        format: int32
+      sort:
+        $ref: '#/definitions/Sort'
+      totalElements:
+        type: integer
+        format: int64
+      totalPages:
+        type: integer
+        format: int32
+    title: Page«CategoryDTO»
+  Page«RoleDTO»:
+    type: object
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/RoleDTO'
+      empty:
+        type: boolean
+      first:
+        type: boolean
+      last:
+        type: boolean
+      number:
+        type: integer
+        format: int32
+      numberOfElements:
+        type: integer
+        format: int32
+      pageable:
+        $ref: '#/definitions/Pageable'
+      size:
+        type: integer
+        format: int32
+      sort:
+        $ref: '#/definitions/Sort'
+      totalElements:
+        type: integer
+        format: int64
+      totalPages:
+        type: integer
+        format: int32
+    title: Page«RoleDTO»
+  Page«UserDTO»:
+    type: object
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/UserDTO'
+      empty:
+        type: boolean
+      first:
+        type: boolean
+      last:
+        type: boolean
+      number:
+        type: integer
+        format: int32
+      numberOfElements:
+        type: integer
+        format: int32
+      pageable:
+        $ref: '#/definitions/Pageable'
+      size:
+        type: integer
+        format: int32
+      sort:
+        $ref: '#/definitions/Sort'
+      totalElements:
+        type: integer
+        format: int64
+      totalPages:
+        type: integer
+        format: int32
+    title: Page«UserDTO»
+  PrivilegeDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+    title: PrivilegeDTO
+  ProductDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+      price:
+        type: number
+    title: ProductDTO
+  ResetPasswordDTO:
+    type: object
+    properties:
+      password:
+        type: string
+      password_confirm:
+        type: string
+      token:
+        type: string
+    title: ResetPasswordDTO
+  RoleDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+    title: RoleDTO
+  RoleDetailDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+      privileges:
+        type: array
+        items:
+          $ref: '#/definitions/PrivilegeDTO'
+    title: RoleDetailDTO
+  RoleSaveDto:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+      privileges:
+        type: array
+        items:
+          $ref: '#/definitions/PrivilegeDTO'
+    title: RoleSaveDto
+  SignUpDTO:
+    type: object
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+        format: int32
+      password:
+        type: string
+      privileges:
+        type: array
+        items:
+          $ref: '#/definitions/PrivilegeDTO'
+      roles:
+        type: array
+        items:
+          $ref: '#/definitions/RoleDTO'
+      username:
+        type: string
+    title: SignUpDTO
+  Sort:
+    type: object
+    properties:
+      empty:
+        type: boolean
+      sorted:
+        type: boolean
+      unsorted:
+        type: boolean
+    title: Sort
+  UpdateUserDTO:
+    type: object
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+        format: int32
+      password:
+        type: string
+      privileges:
+        type: array
+        items:
+          $ref: '#/definitions/PrivilegeDTO'
+      roles:
+        type: array
+        items:
+          $ref: '#/definitions/RoleDTO'
+      username:
+        type: string
+    title: UpdateUserDTO
+  UsuarioCadastroDTO:
+    type: object
+    properties:
+      autorities:
+        type: array
+        items:
+          $ref: '#/definitions/GrantedAuthority'
+      email:
+        type: string
+      id:
+        type: integer
+        format: int32
+      password:
+        type: string
+      privileges:
+        type: array
+        items:
+          $ref: '#/definitions/PrivilegeDTO'
+      roles:
+        type: array
+        items:
+          $ref: '#/definitions/RoleDTO'
+      username:
+        type: string
+    title: User
+  UserDTO:
+    type: object
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+        format: int32
+      password:
+        type: string
+      username:
+        type: string
+    title: UserDTO
+  UserDetailDTO:
+    type: object
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+        format: int32
+      privileges:
+        type: array
+        items:
+          $ref: '#/definitions/PrivilegeDTO'
+      roles:
+        type: array
+        items:
+          $ref: '#/definitions/RoleDTO'
+      username:
+        type: string
+    title: UserDetailDTO
+  UsuarioDataDTO:
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      appUserRoles:
+        type: array
+        items:
+          $ref: '#/definitions/RoleDTO'
+    title: UsuarioDataDTO
+  UsuarioResponseDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      username:
+        type: string
+      email:
+        type: string
+      appUserRoles:
+        type: array
+        items:
+          $ref: '#/definitions/RoleDTO'
+    title: UsuarioResponseDTO
+  SingInDTO:
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+    title: SingInDTO
+  ResetPasswordDTO:
+    type: object
+    properties:
+      token:
+        type: string
+      password:
+        type: string
+      passwordConfirm:
+        type: string
+    title: ResetPasswordDTO
+
+  TokenDataDTO:
+    type: object
+    properties:
+      token:
+        type: string
+      message:
+        type: string
+      token_type:
+        type: string
+      expires_in:
+        type: string 
+      scope:
+        type: string        
+    title: TokenDataDTO   

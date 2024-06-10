@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "e5076313-a76d-4a31-90bb-00633037cc2e",
+		"name": "edoc-usuarios-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3626442",
+		"_collection_link": "https://apiacecon.postman.co/workspace/Juridico~20fb3405-f289-4677-b19c-861062358d71/collection/3626442-e5076313-a76d-4a31-90bb-00633037cc2e?action=share&source=collection_link&creator=3626442"
+	},
+	"item": [
+		{
+			"name": "/usuarios/token?senha=admin&usuario=admin Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();",
+							"pm.environment.set(\"api_token\", data.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/usuarios/token?senha=admin&usuario=admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"usuarios",
+						"token"
+					],
+					"query": [
+						{
+							"key": "senha",
+							"value": "admin"
+						},
+						{
+							"key": "usuario",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usuarios/meu",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{api_token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/usuarios/meu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"usuarios",
+						"meu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usuarios/{usuario}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{api_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/usuarios/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"usuarios",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usuarios/atualiza/token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/usuarios/atualiza/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"usuarios",
+						"atualiza",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usuarios/cadastro",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"string1\",\n    \"email\": \"string\",\n    \"password\": \"string\",\n    \"appUserRoles\": [\n        \"ROLE_ADMIN\", \"ROLE_CLIENT\", \"ROLE_CLIENTUUUU\"\n        \n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/usuarios/cadastro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"usuarios",
+						"cadastro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usuarios/{usuario}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{api_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/usuarios/string1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"usuarios",
+						"string1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
